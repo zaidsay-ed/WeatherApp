@@ -12,14 +12,18 @@ struct ContentView: View {
     var body: some View {
         
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            WelcomeView().environmentObject(locationManager)
+            if let location = locationManager.location{
+                Text("Your coordinates are: \(location.longitude), \(location.latitude)")
+            } else{
+                if locationManager.isLoading {
+                    LoadingView()
+                } else{
+                    WelcomeView().environmentObject(locationManager)
+                }
+            }
         }
-        .background(Color(hue: 0.563, saturation: 0.865, brightness: 0.93))
+        .background(Color(hue: 0.561, saturation: 0.72, brightness: 0.932))
         .preferredColorScheme(/*@START_MENU_TOKEN@*/.dark/*@END_MENU_TOKEN@*/)
-        .padding()
     }
 }
 
